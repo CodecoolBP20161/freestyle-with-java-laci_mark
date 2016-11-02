@@ -25,7 +25,6 @@ public class GameArea extends Application {
                 Tile tile = new Tile(x, y, Math.random() < 0.2);
 
                 grid[x][y] = tile;
-                System.out.println(grid[x][y]);
                 root.getChildren().add(grid[x][y]);
             }
         }
@@ -39,15 +38,6 @@ public class GameArea extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("MineSweeper 1.0");
-//        Button btn = new Button();
-//        btn.setText("Home");
-
-
-//        Pane window = new Pane();
-
-//        window.getChildren().add(btn);
-//        primaryStage.setScene(new Scene(window, 800, 600));
-//        primaryStage.show();
         Scene scene = new Scene(createContent());
         primaryStage.setScene(scene);
         primaryStage.show();

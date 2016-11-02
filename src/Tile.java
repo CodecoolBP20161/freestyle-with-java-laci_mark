@@ -21,6 +21,7 @@ public class Tile extends StackPane {
 
         border.setStroke(Color.LIGHTGRAY);
 
+        text.setFill(Color.WHITE);
         text.setText(hasBomb ? "X" : "");
 
         getChildren().addAll(border, text);
