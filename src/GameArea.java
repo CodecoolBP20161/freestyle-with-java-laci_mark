@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -17,19 +18,20 @@ public class GameArea extends Application {
     private static final int TILES_PER_COL = 10;
     private Tile[][] grid = new Tile[TILES_PER_ROW][TILES_PER_COL];
 
+    /*
+     * Create the Tiles, put them in the matrix and append them to the Pane one by one
+     * Return with the game area
+     */
     private Parent createContent() {
         Pane root = new Pane();
         root.setPrefSize(TILES_PER_ROW * TILE_SIZE, TILES_PER_COL * TILE_SIZE);
         for (int x = 0; x < TILES_PER_ROW; x++) {
             for (int y = 0; y < TILES_PER_COL; y++) {
                 Tile tile = new Tile(x, y, Math.random() < 0.2);
-
                 grid[x][y] = tile;
-                System.out.println(grid[x][y]);
                 root.getChildren().add(grid[x][y]);
             }
         }
-
         return root;
     }
 
@@ -37,17 +39,12 @@ public class GameArea extends Application {
         launch(args);
     }
 
+    /*
+     * Responsible for the display
+     */
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("MineSweeper 1.0");
-//        Button btn = new Button();
-//        btn.setText("Home");
 
-
-//        Pane window = new Pane();
-
-//        window.getChildren().add(btn);
-//        primaryStage.setScene(new Scene(window, 800, 600));
-//        primaryStage.show();
         Scene scene = new Scene(createContent());
         primaryStage.setScene(scene);
         primaryStage.show();
