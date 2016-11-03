@@ -48,8 +48,16 @@ public class Tile extends StackPane {
         setTranslateX(x * GameArea.TILE_SIZE);
         setTranslateY(y * GameArea.TILE_SIZE);
 
-        border.setOnMouseClicked(t -> border.setFill(Color.RED));
+        border.setOnMouseClicked(e -> open());
 
+    }
+
+    public void open() {
+        if ( this.hasBomb() ) {
+            this.text.setText("X");
+        } else {
+            this.text.setText(String.valueOf(this.getBombsAround()));
+        }
     }
 
     List<Tile> getNeighbours(Tile tile) {

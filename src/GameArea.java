@@ -30,7 +30,7 @@ public class GameArea extends Application {
         for (int x = 0; x < TILES_PER_ROW; x++) {
             for (int y = 0; y < TILES_PER_COL; y++) {
                 Tile tile = new Tile(x, y, Math.random() < 0.2);
-                //tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new ClickOnTileActionListener());
+                //tile.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, new ClickOnTileActionListener());
                 grid[x][y] = tile;
                 root.getChildren().add(grid[x][y]);
             }
