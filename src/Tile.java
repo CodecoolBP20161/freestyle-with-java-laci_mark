@@ -1,4 +1,5 @@
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -48,13 +49,22 @@ public class Tile extends StackPane {
         setTranslateX(x * GameArea.TILE_SIZE);
         setTranslateY(y * GameArea.TILE_SIZE);
 
-        border.setOnMouseClicked(e -> open());
+//        border.setOnMouseClicked(e -> open());
+        border.setOnMouseClicked(event -> {
+            MouseButton button = event.getButton();
+            if(button==MouseButton.PRIMARY){
+                open();
+            }else if(button==MouseButton.SECONDARY){
+                text.setText("F");
+            }
+        });
 
     }
 
     public void open() {
         if ( this.hasBomb() ) {
             this.text.setText("X");
+            System.exit(0);
         } else {
             this.text.setText(String.valueOf(this.getBombsAround()));
         }
