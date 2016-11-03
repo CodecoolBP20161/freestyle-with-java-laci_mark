@@ -64,6 +64,11 @@ public class Tile extends StackPane {
     public void open() {
         if ( this.hasBomb() ) {
             this.text.setText("X");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.exit(0);
         } else {
             this.text.setText(String.valueOf(this.getBombsAround()));
