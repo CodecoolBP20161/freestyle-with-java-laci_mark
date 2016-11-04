@@ -4,13 +4,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
 
 /**
@@ -55,7 +50,7 @@ public class Tile extends StackPane {
             if (!GameArea.gameOverGetter()) {
                 if (button == MouseButton.PRIMARY) {
                     open();
-                } else if (button == MouseButton.SECONDARY) {
+                } else if (button == MouseButton.SECONDARY && !(this.isOpen)) {
                         text.setText("❗");
                 }
             }
@@ -67,7 +62,7 @@ public class Tile extends StackPane {
     private void open() {
             if (this.hasBomb()) {
                 this.text.setText("☼");
-                GameArea.messageField.setMessage("Your head is blown clean off!\n" +
+                GameArea.messageField.setMessage("Your head was blown clean off!\n" +
                         "Your score was: " + String.valueOf(Score.getScore()));
                 GameArea.gameOverSetter();
             } else {
