@@ -48,7 +48,6 @@ public class GameArea extends Application {
                 if ( tile.hasBomb()) {
                     continue;
                 }
-
                 long numberOfBombs = tile.getNeighbours(tile).stream().filter(actualTile -> actualTile.hasBomb()).count();
                 tile.setBombsAround((int)numberOfBombs);
             }
@@ -58,20 +57,21 @@ public class GameArea extends Application {
         messageField = new Message();
 
         root.getChildren().addAll(messageField, btn);
+
         btn.setLayoutX(TILES_PER_ROW * TILE_SIZE / 2 - 30);
         btn.setLayoutY(TILES_PER_COL * TILE_SIZE + 20);
+
         messageField.setPrefSize(TILE_SIZE * TILES_PER_ROW, 50);
         messageField.setLayoutY(TILES_PER_COL * TILE_SIZE + 50);
-
 
         btn.setOnMouseClicked(event -> newGame(stage));
 
         return root;
     }
 
-
     private static void newGame(Stage primaryStage) {
         isGameOver = false;
+        Score.resetScore();
         Scene scene = new Scene(createContent());
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -85,9 +85,7 @@ public class GameArea extends Application {
         return grid[x][y];
     }
 
-    /*
-     * Responsible for the display
-     */
+    //Responsible for the display
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("MineSweeper 1.0");
         stage = primaryStage;

@@ -39,9 +39,6 @@ public class Tile extends StackPane {
         // Color the text in the tiles
         text.setFill(Color.BLACK);
 
-        // If there is a bomb, print X
-        //text.setText(hasBomb ? "X" : "");
-
         // Append the text and the border to the Pane
         getChildren().addAll(border, text);
 
@@ -49,30 +46,34 @@ public class Tile extends StackPane {
         setTranslateX(x * GameArea.TILE_SIZE);
         setTranslateY(y * GameArea.TILE_SIZE);
 
-//        border.setOnMouseClicked(e -> open());
+        // click on tile event handler
         border.setOnMouseClicked(event -> {
             MouseButton button = event.getButton();
-            if(button==MouseButton.PRIMARY){
-                open();
-            }else if(button==MouseButton.SECONDARY){
-                text.setText("F");
+            if (!GameArea.gameOverGetter()) {
+                if (button == MouseButton.PRIMARY) {
+                    open();
+                } else if (button == MouseButton.SECONDARY) {
+                        text.setText("F");
+                }
             }
         });
-
     }
 
+    // when tile is clicked
     private void open() {
-        if (!GameArea.gameOverGetter()) {
             if (this.hasBomb()) {
                 this.text.setText("X");
-                GameArea.messageField.messageSetter("Your head is blown clean off!");
+                GameArea.messageField.setMessage("Your head is blown clean off!\n" +
+                        "Your score is: " + String.valueOf(Score.getScore()));
                 GameArea.gameOverSetter();
             } else {
                 this.text.setText(String.valueOf(this.getBombsAround()));
+                Score.addScore();
             }
         }
-    }
 
+
+    // Find the tiles around the tile object in the argument
     List<Tile> getNeighbours(Tile tile) {
         List <Tile> neighbours = new ArrayList<>();
         int[] indicies = new int[] {
@@ -105,7 +106,7 @@ public class Tile extends StackPane {
         this.bombsAround = numberOfBombs;
     }
 
-    int getBombsAround() {
+    private int getBombsAround() {
         return this.bombsAround;
     }
 }
