@@ -73,13 +73,15 @@ public class Tile extends StackPane {
             } else {
                 this.text.setText(String.valueOf(this.getBombsAround()));
                 switch (this.getBombsAround()) {
-                    case 1: this.text.setFill(Color.RED);
+                    case 1: this.text.setFill(Color.BLUE);
                         break;
-                    case 2: this.text.setFill(Color.BLUE);
+                    case 2: this.text.setFill(Color.GREEN);
                         break;
-                    case 3: this.text.setFill(Color.GREEN);
+                    case 3: this.text.setFill(Color.RED);
                         break;
-                    case 4: this.text.setFill(Color.PURPLE);
+                    case 4: this.text.setFill(Color.DARKBLUE);
+                        break;
+                    case 5: this.text.setFill(Color.DARKRED);
                         break;
                     default: this.text.setFill(Color.BLACK);
                 }
