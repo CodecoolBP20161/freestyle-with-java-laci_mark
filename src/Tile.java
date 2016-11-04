@@ -20,6 +20,7 @@ public class Tile extends StackPane {
     private int x, y;
     private boolean hasBomb;
     private int bombsAround;
+    private boolean isOpen;
 
     private Rectangle border = new Rectangle(GameArea.TILE_SIZE - 2, GameArea.TILE_SIZE - 2);
     private Text text = new Text();
@@ -28,6 +29,8 @@ public class Tile extends StackPane {
         this.x = x;
         this.y = y;
         this.hasBomb = hasBomb;
+        if (!(this.hasBomb)) { GameArea.addNotBombCounter();}
+        isOpen = false;
 
 
         // Fill the Tile with color
@@ -53,24 +56,42 @@ public class Tile extends StackPane {
                 if (button == MouseButton.PRIMARY) {
                     open();
                 } else if (button == MouseButton.SECONDARY) {
-                        text.setText("F");
+                        text.setText("❗");
                 }
             }
+
         });
     }
 
     // when tile is clicked
     private void open() {
             if (this.hasBomb()) {
-                this.text.setText("X");
+                this.text.setText("☼");
                 GameArea.messageField.setMessage("Your head is blown clean off!\n" +
-                        "Your score is: " + String.valueOf(Score.getScore()));
+                        "Your score was: " + String.valueOf(Score.getScore()));
                 GameArea.gameOverSetter();
             } else {
                 this.text.setText(String.valueOf(this.getBombsAround()));
-                Score.addScore();
+                switch (this.getBombsAround()) {
+                    case 1: this.text.setFill(Color.RED);
+                        break;
+                    case 2: this.text.setFill(Color.BLUE);
+                        break;
+                    case 3: this.text.setFill(Color.GREEN);
+                        break;
+                    case 4: this.text.setFill(Color.PURPLE);
+                        break;
+                    default: this.text.setFill(Color.BLACK);
+                }
+                if (!(this.isOpen)) {Score.addScore();}
+                if (GameArea.getNonBombTiles() == Score.getScore()) {
+                    GameArea.messageField.setMessage("You avoided all the bombs!\n" +
+                            "Your score is: " + String.valueOf(Score.getScore()));
+                }
             }
-        }
+            this.isOpen = true;
+
+    }
 
 
     // Find the tiles around the tile object in the argument

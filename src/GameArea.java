@@ -16,10 +16,10 @@ import javafx.stage.Stage;
  * Created by milu_laci on 02.11.16.
  */
 public class GameArea extends Application {
-
-    public static final int TILE_SIZE = 50;
+    public static final int TILE_SIZE = 30;
     public static final int TILES_PER_ROW = 10;
     public static final int TILES_PER_COL = 10;
+    private static int numberOfNonBombTiles = 0;
     private static boolean isGameOver = false;
     private static Tile[][] grid = new Tile[TILES_PER_ROW][TILES_PER_COL];
     private static Stage stage;
@@ -30,6 +30,7 @@ public class GameArea extends Application {
      * Return with the game area
      */
     private static Parent createContent() {
+        numberOfNonBombTiles = 0;
         Pane root = new Pane();
         root.setPrefSize(TILES_PER_ROW * TILE_SIZE, TILES_PER_COL * TILE_SIZE + 100);
 
@@ -52,6 +53,8 @@ public class GameArea extends Application {
                 tile.setBombsAround((int)numberOfBombs);
             }
         }
+
+        System.out.println(String.valueOf(numberOfNonBombTiles) + " numberOfNonBombTiles");
 
         Button btn = new Button("Home");
         messageField = new Message();
@@ -89,11 +92,14 @@ public class GameArea extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("MineSweeper 1.0");
         stage = primaryStage;
-        Scene scene = new Scene(createContent());
         newGame(primaryStage);
     }
 
     static void gameOverSetter() { isGameOver = true;}
 
     static boolean gameOverGetter() { return isGameOver;}
+
+    static void addNotBombCounter() { numberOfNonBombTiles++;}
+
+    static int getNonBombTiles() {return numberOfNonBombTiles;}
 }
