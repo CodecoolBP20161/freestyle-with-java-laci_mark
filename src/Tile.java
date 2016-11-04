@@ -22,9 +22,9 @@ public class Tile extends StackPane {
     private int bombsAround;
 
     private Rectangle border = new Rectangle(GameArea.TILE_SIZE - 2, GameArea.TILE_SIZE - 2);
-    public Text text = new Text();
+    private Text text = new Text();
 
-    public Tile (int x, int y, boolean hasBomb) {
+    Tile(int x, int y, boolean hasBomb) {
         this.x = x;
         this.y = y;
         this.hasBomb = hasBomb;
@@ -61,17 +61,15 @@ public class Tile extends StackPane {
 
     }
 
-    public void open() {
-        if ( this.hasBomb() ) {
-            this.text.setText("X");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    private void open() {
+        if (!GameArea.gameOverGetter()) {
+            if (this.hasBomb()) {
+                this.text.setText("X");
+                GameArea.messageField.messageSetter("Your head is blown clean off!");
+                GameArea.gameOverSetter();
+            } else {
+                this.text.setText(String.valueOf(this.getBombsAround()));
             }
-            System.exit(0);
-        } else {
-            this.text.setText(String.valueOf(this.getBombsAround()));
         }
     }
 
